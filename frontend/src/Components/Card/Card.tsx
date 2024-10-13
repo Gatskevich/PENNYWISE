@@ -1,14 +1,18 @@
-import React from "react";
+import React, { SyntheticEvent } from "react";
 import { Link } from "react-router-dom";
 import { ICompanySearch } from "../../company";
+import AddPortfolio from "../Portfolio/AddPortfolio/AddPotfolio";
+
 interface Props {
   id: string;
   searchResult: ICompanySearch;
+  onPortfolioCreate: (e: SyntheticEvent) => void;
 }
 
 const Card: React.FC<Props> = ({
   id,
   searchResult,
+  onPortfolioCreate,
 }: Props): JSX.Element => {
   return (
     <div
@@ -26,6 +30,10 @@ const Card: React.FC<Props> = ({
       <p className="font-bold text-veryDarkBlue">
         {searchResult.exchangeShortName} - {searchResult.stockExchange}
       </p>
+      <AddPortfolio
+        onPortfolioCreate={onPortfolioCreate}
+        symbol={searchResult.symbol}
+      />
     </div>
   );
 };
