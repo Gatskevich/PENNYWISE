@@ -1,5 +1,5 @@
 import axios from "axios";
-import { ICompanyProfile, ICompanySearch } from "./company";
+import { ICompanyKeyMetrics, ICompanyProfile, ICompanySearch } from "./company";
 
 export interface ISearchResponse {
   data: ICompanySearch[];
@@ -32,3 +32,15 @@ export const getCompanyProfile = async (query: string) => {
     console.log("error message: ", error.message);
   }
 };
+
+export const getKeyMetrics = async (query: string) => {
+  try {
+    const data = await axios.get<ICompanyKeyMetrics[]>(
+      `https://financialmodelingprep.com/api/v3/key-metrics-ttm/${query}?limit=40&apikey=${import.meta.env.VITE_REACT_APP_API_KEY}`
+    );
+    return data;
+  } catch (error: any) {
+    console.log("error message: ", error.message);
+  }
+};
+
