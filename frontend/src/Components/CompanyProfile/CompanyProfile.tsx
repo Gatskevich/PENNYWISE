@@ -39,7 +39,7 @@ const CompanyProfile = (props: Props) => {
   const getCompanyKeyRatios = useCallback( async () => {
     const value = await getKeyMetrics(ticker);
     setCompanyData(value?.data[0]);
-  }, [ticker]);
+  }, []);
 
   useEffect(() => {
     getCompanyKeyRatios();
