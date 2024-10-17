@@ -1,5 +1,5 @@
 import axios from "axios";
-import { ICompanyBalanceSheet, ICompanyCashFlow, ICompanyCompData, ICompanyIncomeStatement, ICompanyKeyMetrics, ICompanyProfile, ICompanySearch, ICompanyTenK } from "./company";
+import { ICompanyBalanceSheet, ICompanyCashFlow, ICompanyCompData, ICompanyHistoricalDividend, ICompanyIncomeStatement, ICompanyKeyMetrics, ICompanyProfile, ICompanySearch, ICompanyTenK } from "./company";
 
 export interface ISearchResponse {
   data: ICompanySearch[];
