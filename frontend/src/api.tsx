@@ -98,3 +98,14 @@ export const getTenK = async (query: string) => {
     console.log("error message: ", error.message);
   }
 };
+
+export const getHistoricalDividend = async (query: string) => {
+  try {
+    const data = await axios.get<ICompanyHistoricalDividend>(
+      `https://financialmodelingprep.com/api/v3/historical-price-full/stock_dividend/${query}?apikey=${import.meta.env.VITE_REACT_APP_API_KEY}`
+    );
+    return data;
+  } catch (error: any) {
+    console.log("error message: ", error.message);
+  }
+};
