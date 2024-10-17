@@ -1,5 +1,5 @@
 import axios from "axios";
-import { ICompanyBalanceSheet, ICompanyCashFlow, ICompanyCompData, ICompanyIncomeStatement, ICompanyKeyMetrics, ICompanyProfile, ICompanySearch, ICompanyTenK } from "./company";
+import { ICompanyBalanceSheet, ICompanyCashFlow, ICompanyCompData, ICompanyHistoricalDividend, ICompanyIncomeStatement, ICompanyKeyMetrics, ICompanyProfile, ICompanySearch, ICompanyTenK } from "./company";
 
 export interface ISearchResponse {
   data: ICompanySearch[];
@@ -92,6 +92,17 @@ export const getTenK = async (query: string) => {
   try {
     const data = await axios.get<ICompanyTenK[]>(
       `https://financialmodelingprep.com/api/v3/sec_filings/${query}?type=10-K&page=0&apikey=${import.meta.env.VITE_REACT_APP_API_KEY}`
+    );
+    return data;
+  } catch (error: any) {
+    console.log("error message: ", error.message);
+  }
+};
+
+export const getHistoricalDividend = async (query: string) => {
+  try {
+    const data = await axios.get<ICompanyHistoricalDividend>(
+      `https://financialmodelingprep.com/api/v3/historical-price-full/stock_dividend/${query}?apikey=${import.meta.env.VITE_REACT_APP_API_KEY}`
     );
     return data;
   } catch (error: any) {
