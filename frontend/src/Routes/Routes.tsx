@@ -11,6 +11,7 @@ import CashflowStatement from "../Components/CashflowStatement/CashflowStatement
 import HistoricalDividend from "../Components/HistoricalDividend/HistoricalDividend";
 import LoginPage from "../Pages/LoginPage/LoginPage";
 import RegisterPage from "../Pages/RegisterPage/RegisterPage";
+import ProtectedRoute from "./ProtectedRoute";
 
 export const router = createBrowserRouter([
   {
@@ -23,14 +24,18 @@ export const router = createBrowserRouter([
       {
         path: "search",
         element: (
-          <SearchPage />
+          <ProtectedRoute>
+            <SearchPage />
+          </ProtectedRoute>
         ),
       },
       { path: "design-guide", element: <DesignGuide /> },
       {
         path: "company/:ticker",
         element: (
-          <CompanyPage />
+          <ProtectedRoute>
+            <CompanyPage />
+          </ProtectedRoute>
         ),
         children: [
           { path: "company-profile", element: <CompanyProfile /> },
