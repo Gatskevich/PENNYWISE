@@ -35,7 +35,7 @@ namespace api.Controllers
             return Ok(userPortfolio);
         }
 
-        [HttpPost]
+        [HttpPost("{symbol}")]
         [Authorize]
         public async Task<IActionResult> AddPortfolio(string symbol)
         {
