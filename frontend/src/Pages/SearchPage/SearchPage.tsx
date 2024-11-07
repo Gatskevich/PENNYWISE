@@ -1,15 +1,18 @@
-import { ChangeEvent, SyntheticEvent, useCallback, useState } from "react";
+import { ChangeEvent, SyntheticEvent, useCallback, useEffect, useState } from "react";
 import CardList from "../../Components/CardList/CardList";
 import Search from "../../Components/Search/Search";
 import { ICompanySearch } from "../../company";
 import { searchCompanies } from "../../api";
 import ListPortfolio from "../../Components/Portfolio/ListPortfolio/ListPortflio";
+import { portfolioAddAPI, portfolioDeleteAPI, portfolioGetAPI } from "../../Services/PortfolioService";
+import { toast } from "react-toastify";
+import { PortfolioGet } from "../../Models/Portfolio";
 
 type Props = {};
 
 const SearchPage = (props: Props) => {
   const [search, setSearch] = useState<string>("");
-  const [portfolioValues, setPortfolioValues] = useState<string[]>(
+  const [portfolioValues, setPortfolioValues] = useState<PortfolioGet[] | null>(
     []
   );
   const [searchResult, setSearchResult] = useState<ICompanySearch[]>([]);
@@ -19,23 +22,40 @@ const SearchPage = (props: Props) => {
     setSearch(e.target.value);
   };
 
+  const getPortfolio = useCallback(() => {
+    portfolioGetAPI()
+      .then((res) => {
+        if (res?.data) {
+          setPortfolioValues(res?.data);
+        }
+      })
+      .catch((e) => {
+        setPortfolioValues(null);
+      });
+  }, []);
+
   const onPortfolioCreate = useCallback((e: any) => {
     e.preventDefault();
-    const exist = portfolioValues.find(
-      value => value === e.target[0].value
-    )
-    if(exist) return;
-
-    const updatedPortfolioValues = [...portfolioValues, e.target[0].value];
-    setPortfolioValues(updatedPortfolioValues);
+    portfolioAddAPI(e.target[0].value)
+      .then((res) => {
+        if (res?.status === 204) {
+          toast.success("Stock added to portfolio!");
+          getPortfolio();
+        }
+      })
+    .catch((e) => {
+      toast.warning("Could not add stock to portfolio!");
+    });
   }, [portfolioValues, setPortfolioValues]);
 
   const onPortfolioDelete = useCallback((e: any) => {
     e.preventDefault();
-    const removedPortfolioValues = portfolioValues.filter(
-      value => value !== e.target[0].value
-    )
-    setPortfolioValues(removedPortfolioValues);
+    portfolioDeleteAPI(e.target[0].value).then((res) => {
+      if (res?.status == 200) {
+        toast.success("Stock deleted from portfolio!");
+        getPortfolio();
+      }
+    });
   }, [portfolioValues, setPortfolioValues]);
 
   const onSearchSubmit = useCallback( async (e: SyntheticEvent) => {
@@ -48,6 +68,10 @@ const SearchPage = (props: Props) => {
       setSearchResult(result.data);
     }
   }, [search]);
+
+  useEffect(() => {
+    getPortfolio();
+  }, []);
 
   return (
     <>
@@ -70,3 +94,7 @@ const SearchPage = (props: Props) => {
 };
 
 export default SearchPage;
+
+function getPortfolio() {
+  throw new Error("Function not implemented.");
+}
