@@ -4,9 +4,8 @@ import { getHistoricalDividend } from "../../api";
 import SimpleLineChart from "../SimpleLineChart/SimpleLineChart";
 import { IDividend } from "../../company";
 
-type Props = {};
 
-const HistoricalDividend = (props: Props) => {
+const HistoricalDividend = () => {
   const ticker = useOutletContext<string>();
   const [dividend, setDividend] = useState<IDividend[]>();
   useState<boolean>(false);

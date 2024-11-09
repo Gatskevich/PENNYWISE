@@ -1,0 +1,38 @@
+services:
+  frontend:
+    build: ./frontend
+    container_name: frontend
+    ports:
+      - "3000:3000"          
+    depends_on:
+      - backend              
+    networks:
+      - app-network
+      
+  backend:
+    build: ./api
+    container_name: backend
+    ports:
+      - "5000:5000"
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+    depends_on:
+      - sqlserver
+    networks:
+      - app-network
+
+  sqlserver:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    container_name: sqlserver
+    environment:
+      - ACCEPT_EULA=Y
+      - SA_PASSWORD=${SA_PASSWORD}
+    ports:
+      - "1433:1433"
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge
+

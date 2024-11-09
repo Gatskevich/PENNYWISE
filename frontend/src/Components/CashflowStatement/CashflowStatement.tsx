@@ -6,8 +6,6 @@ import { ICompanyCashFlow } from "../../company";
 import Spinner from "../Spinner/Spinner";
 import { formatLargeMonetaryNumber } from "../../Helpers/NumberFormatting";
 
-type Props = {};
-
 const config = [
   {
     label: "Date",
@@ -52,7 +50,7 @@ const config = [
   },
 ];
 
-const CashflowStatement = (props: Props) => {
+const CashflowStatement = () => {
   const ticker = useOutletContext<string>();
   const [cashFlowData, setCashFlowData] = useState<ICompanyCashFlow[]>();
 

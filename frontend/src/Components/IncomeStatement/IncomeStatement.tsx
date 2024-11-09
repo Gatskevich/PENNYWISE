@@ -6,8 +6,6 @@ import { getIncomeStatement } from "../../api";
 import Spinner from "../Spinner/Spinner";
 import { formatLargeMonetaryNumber, formatRatio } from "../../Helpers/NumberFormatting";
 
-type Props = {};
-
 const configs = [
   {
     label: "Date",
@@ -74,7 +72,7 @@ const configs = [
   },
 ];
 
-const IncomeStatement = (props: Props) => {
+const IncomeStatement = () => {
   const ticker = useOutletContext<string>();
   const [incomeStatement, setIncomeStatement] =
     useState<ICompanyIncomeStatement[]>();
