@@ -8,9 +8,8 @@ import Tile from "../../Components/Tile/Tile";
 import Spinner from "../../Components/Spinner/Spinner";
 import TenKFinder from "../../Components/TenKFinder/TenKFinder";
 
-interface Props {}
 
-const CompanyPage = (props: Props) => {
+const CompanyPage = () => {
   let { ticker } = useParams();
 
   const [company, setCompany] = useState<ICompanyProfile>();

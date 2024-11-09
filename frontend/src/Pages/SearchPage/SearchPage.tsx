@@ -8,9 +8,8 @@ import { portfolioAddAPI, portfolioDeleteAPI, portfolioGetAPI } from "../../Serv
 import { toast } from "react-toastify";
 import { PortfolioGet } from "../../Models/Portfolio";
 
-type Props = {};
 
-const SearchPage = (props: Props) => {
+const SearchPage = () => {
   const [search, setSearch] = useState<string>("");
   const [portfolioValues, setPortfolioValues] = useState<PortfolioGet[] | null>(
     []
@@ -29,7 +28,7 @@ const SearchPage = (props: Props) => {
           setPortfolioValues(res?.data);
         }
       })
-      .catch((e) => {
+      .catch(() => {
         setPortfolioValues(null);
       });
   }, []);
@@ -43,7 +42,7 @@ const SearchPage = (props: Props) => {
           getPortfolio();
         }
       })
-    .catch((e) => {
+    .catch(() => {
       toast.warning("Could not add stock to portfolio!");
     });
   }, [portfolioValues, setPortfolioValues]);
@@ -94,7 +93,3 @@ const SearchPage = (props: Props) => {
 };
 
 export default SearchPage;
-
-function getPortfolio() {
-  throw new Error("Function not implemented.");
-}

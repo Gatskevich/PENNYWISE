@@ -74,7 +74,7 @@ namespace api.Controllers
                         return Ok(
                             new 
                             {
-                                Username = appUser.UserName,
+                                UserName = appUser.UserName,
                                 Email = appUser.Email,
                                 Token = _tokenService.CreateToken(appUser)
                             }

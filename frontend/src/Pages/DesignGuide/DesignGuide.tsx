@@ -2,7 +2,6 @@ import RatioList from "../../Components/RatioList/RatioList";
 import Table from "../../Components/Table/Table";
 import { TestDataCompany } from "../../Components/Table/testData";
 
-type Props = {};
 
 const data = TestDataCompany;
 
@@ -13,7 +12,7 @@ const tableConfig = [
   },
 ];
 
-const DesignGuide = (props: Props) => {
+const DesignGuide = () => {
   return (
     <>
       <h1>

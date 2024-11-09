@@ -92,12 +92,14 @@ builder.Services.AddScoped<IPortfolioRepository, PortfolioRepository>();
 builder.Services.AddScoped<IFMPService, FMPService>();
 builder.Services.AddHttpClient<IFMPService, FMPService>();
 
+builder.WebHost.UseUrls("http://0.0.0.0:5000");
+
 var app = builder.Build();
 
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
-      app.UseSwaggerUI(c =>
+    app.UseSwaggerUI(c =>
     {
         c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1");
         c.RoutePrefix = string.Empty;
@@ -107,10 +109,10 @@ if (app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 
 app.UseCors(x => x
+    .WithOrigins("http://localhost:3000")
     .AllowAnyMethod()
     .AllowAnyHeader()
-    .AllowCredentials()
-    .SetIsOriginAllowed(origin => true));
+    .AllowCredentials());
 
 app.UseAuthentication();
 app.UseAuthorization();

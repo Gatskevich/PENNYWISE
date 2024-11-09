@@ -2,9 +2,8 @@ import { Link } from "react-router-dom";
 import logo from "../../assets/logo.png";
 import { useAuth } from "../../Context/useAuth";
 
-interface Props {}
 
-const Navbar = (props: Props) => {
+const Navbar = () => {
   const { isLoggedIn, user, logout } = useAuth();
   
   return (
